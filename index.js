@@ -1,16 +1,16 @@
-const fs = require("fs");
-const path = require("path");
-const SwaggerParser = require("@apidevtools/swagger-parser");
-const downloadJSON = require("./downloadJSON");
+const fs = require('fs');
+const path = require('path');
+const SwaggerParser = require('@apidevtools/swagger-parser');
+const downloadJSON = require('./downloadJSON');
 // api接口方法存放目录1
-const API_PATH = path.resolve(__dirname, "./src/proxy");
+const API_PATH = path.resolve(__dirname, './src/proxy');
 
 //#region method
 /**
  * 1、检测接口存放目录是否存在，如果不存在生成文件
  * 2、检测配置文件，如果没有生成配置文件
  * */
-const isExist = (lastPath = "") => {
+const isExist = (lastPath = '') => {
   // 默认路径
   const privatePath = `${lastPath ? API_PATH : API_PATH}`;
   // 检测proxy文件夹是否存在
@@ -28,11 +28,8 @@ const isExist = (lastPath = "") => {
     // ！！！ 根据文档提示，在调用 fs.open()、fs.readFile() 或 fs.writeFile() 之前，不要使用 fs.access() 检查文件的可访问性。（未处理）
     fs.access(configPath, function (err) {
       // ENOENT 错误标识没有文件或者目录
-      if (err && err.code === "ENOENT") {
-        fs.writeFileSync(
-          `${API_PATH}/generate-proxy.json`,
-          `{"ignore":["api-definition"]}`
-        );
+      if (err && err.code === 'ENOENT') {
+        fs.writeFileSync(`${API_PATH}/generate-proxy.json`, `{"ignore":["api-definition"]}`);
       }
     });
   }
@@ -42,18 +39,18 @@ const isExist = (lastPath = "") => {
  * 移除名称中包含的Async
  * */
 function formatPathName(name) {
-  if (!name) return ""
-  return name.replace("Async", "");
+  if (!name) return '';
+  return name.replace('Async', '');
 }
 /**
  * 获取地址中的param参数，并作接口参数返回
-*/
+ */
 function urlParam(url) {
   const pars = url.match(/\{(.+?)\}/g); // 被花括号包裹的内容
   if (pars) {
-    let temp = "";
+    let temp = '';
     for (let par of pars) {
-      par = par.replace("{", "").replace("}", "");
+      par = par.replace('{', '').replace('}', '');
       temp = temp + `${par}: string, `;
     }
     return temp;
@@ -64,9 +61,9 @@ function urlParam(url) {
 
 /**
  * 根据配置文件，忽略配置的接口信息
-*/
+ */
 function ignoreApi(fileName) {
-  var temp = fs.readFileSync(`${API_PATH}/generate-proxy.json`, "utf-8");
+  var temp = fs.readFileSync(`${API_PATH}/generate-proxy.json`, 'utf-8');
   const json = JSON.parse(temp);
   const ignores = json?.ignore;
   if (ignores && ignores.length > 0) {
@@ -82,7 +79,7 @@ function ignoreApi(fileName) {
 
 /**
  * 将生成的模块写入到文件中
-*/
+ */
 const getModules = (map) => {
   map.forEach((value, key) => {
     if (ignoreApi(key)) {
@@ -104,7 +101,7 @@ const writeFileApi = (fileName, apiData) => {
     const itemKeys = Object.keys(item); // 请求方法
 
     for (const itemTagKey of itemKeys) {
-      if (itemTagKey === "allPath") {
+      if (itemTagKey === 'allPath') {
         break;
       }
       const itemKeysFirest = item[itemTagKey];
@@ -112,13 +109,12 @@ const writeFileApi = (fileName, apiData) => {
       let allPath = "'" + item.allPath + "'";
       const param = urlParam(allPath);
       if (param) {
-        allPath = "`" + item.allPath.replace(/{/g, "${") + "`";
+        allPath = '`' + item.allPath.replace(/{/g, '${') + '`';
       }
 
       tplIndex =
-        `${tplIndex}\n// ${itemKeysFirest.summary?.replace(/\r\n/g, "") || ""
-        }\n` +
-        `export const ${pathName} = (${param ?? ""}params?: any) => {\n` +
+        `${tplIndex}\n// ${itemKeysFirest.summary?.replace(/\r\n/g, '') || ''}\n` +
+        `export const ${pathName} = (${param ?? ''}params) => {\n` +
         `	return restService.${itemTagKey}(${allPath}, params);\n};`;
     }
   }
@@ -138,7 +134,7 @@ const _start = async () => {
     const modulesMap = new Map();
     for (let i = 0; i < pathsKeysLen; i++) {
       const item = pathsKeys[i];
-      const itemAry = item.split("/");
+      const itemAry = item.split('/');
       const pathsItem = paths[item];
       let fileName = itemAry[3];
       if (!fileName) continue;
@@ -166,13 +162,12 @@ const _start = async () => {
 isExist();
 
 // 下载json文件
-downloadJSON(
-  "https://gateway.nacho.cn/mc/v1/swagger.json",
-  `${API_PATH}/swagger.json`
-).then(() => {
-  _start();
-}).catch(_e => {
-  console.log(_e, 'downloadJSON');
-  // TODO
-  // 文件下载失败
-})
+downloadJSON('https://gateway.nacho.cn/mc/v1/swagger.json', `${API_PATH}/swagger.json`)
+  .then(() => {
+    _start();
+  })
+  .catch((_e) => {
+    console.log(_e, 'downloadJSON');
+    // TODO
+    // 文件下载失败
+  });

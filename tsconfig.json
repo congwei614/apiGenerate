@@ -1,30 +1,32 @@
 {
-	"compilerOptions": {
-		"outDir": "./dist", // 输出目录
-		"target": "esnext", // 指定ECMAScript目标版本:ESNext(最新版本)
-		"module": "ESNext", // 指定生成哪个模块系统代码:ESNext(最新版本)
-		"moduleResolution": "node", // 决定如何处理模块:采用node模块处理方式
-		"strict": true, // 启用所有严格类型检查选项
-		"forceConsistentCasingInFileNames": true, // 禁止对同一个文件的不一致的引用。
-		"allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查
-		"strictFunctionTypes": false, // 禁用函数参数双向协变检查。
-		"jsx": "preserve", // JSX模式:preserve(生成代码中会保留JSX以供后续的转换操作使用,输出文件会带有.jsx扩展名)
-		"baseUrl": ".", // 解析非相对模块名的基准目录
-		"allowJs": true, // 允许编译器编译JS，JSX文件
-		"checkJs": false, // 允许在JS文件中报错，通常与allowJS一起使用
-		"sourceMap": false, // 生成相应的map文件。
-		"esModuleInterop": true, // 发出额外的 JavaScript 以简化对导入 CommonJS 模块的支持。
-		"noUnusedLocals": true, // 若有未使用的局部变量则抛错。
-		"noUnusedParameters": true, // 	若有未使用的参数则抛错。
-		"experimentalDecorators": true, // 启用实验性的ES装饰器。
-		"skipLibCheck": true, // 	忽略所有的声明文件（ *.d.ts）的类型检查。
-		"types": ["node", "@types/node"], // 要包含的类型声明文件名列表
-		"paths": {
-			// 模块名到基于 baseUrl的路径映射的列表
-			"/@/*": ["src/*"]
-		},
-		"lib": ["esnext", "dom", "dom.iterable", "scripthost"]
-	},
-	"include": ["src/**/*.ts", "src/**/*.d.ts"],
-	"exclude": ["node_modules", "dist", "src/proxy", "scripts"]
+    "compilerOptions": {
+        "outDir": "./dist", // 输出目录
+        "target": "esnext", // 指定ECMAScript目标版本:ESNext(最新版本)
+        "module": "ESNext", // 指定生成哪个模块系统代码:ESNext(最新版本)
+        "moduleResolution": "node", // 决定如何处理模块:采用node模块处理方式
+        "strict": true, // 启用所有严格类型检查选项
+        "forceConsistentCasingInFileNames": true, // 禁止对同一个文件的不一致的引用。
+        "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查
+        "strictFunctionTypes": false, // 禁用函数参数双向协变检查。
+        "jsx": "preserve", // JSX模式:preserve(生成代码中会保留JSX以供后续的转换操作使用,输出文件会带有.jsx扩展名)
+        "baseUrl": ".", // 解析非相对模块名的基准目录
+        "allowJs": true, // 允许编译器编译JS，JSX文件
+        "checkJs": false, // 允许在JS文件中报错，通常与allowJS一起使用
+        "sourceMap": false, // 生成相应的map文件。
+        "esModuleInterop": true, // 发出额外的 JavaScript 以简化对导入 CommonJS 模块的支持。
+        "noUnusedLocals": true, // 若有未使用的局部变量则抛错。
+        "noUnusedParameters": true, // 	若有未使用的参数则抛错。
+        "experimentalDecorators": true, // 启用实验性的ES装饰器。
+        "skipLibCheck": true, // 	忽略所有的声明文件（ *.d.ts）的类型检查。
+        "noEmit": true, //不输出文件,即编译后不会生成任何js文件
+        "noEmitOnError": true, //有错误时不生成js文件
+        "types": ["node", "@types/node"], // 要包含的类型声明文件名列表
+        "paths": {
+            // 模块名到基于 baseUrl的路径映射的列表
+            "/@/*": ["src/*"]
+        },
+        "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    },
+    "include": ["src/**/*.ts", "src/**/*.d.ts"],
+    "exclude": ["node_modules", "dist", "src/proxy", "scripts"]
 }
