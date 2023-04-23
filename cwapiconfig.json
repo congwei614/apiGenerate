@@ -1,0 +1,8 @@
+{
+    "url":"https://gateway.nacho.cn/mc/v1/swagger.json",
+    "outSwagger":{
+        "path":"./",
+        "name":"swagger"
+    }
+
+}
