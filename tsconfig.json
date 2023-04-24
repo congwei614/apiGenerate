@@ -4,7 +4,8 @@
         "target": "esnext", // 指定ECMAScript目标版本:ESNext(最新版本)
         "module": "ESNext", // 指定生成哪个模块系统代码:ESNext(最新版本)
         "moduleResolution": "node", // 决定如何处理模块:采用node模块处理方式
-        "strict": true, // 启用所有严格类型检查选项
+        "strict": false, // 启用所有严格类型检查选项
+        "allowJs": true,
         "forceConsistentCasingInFileNames": true, // 禁止对同一个文件的不一致的引用。
         "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。这并不影响代码的输出，仅为了类型检查
         "strictFunctionTypes": false, // 禁用函数参数双向协变检查。
