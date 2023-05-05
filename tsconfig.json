@@ -28,6 +28,6 @@
         },
         "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts"],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/core/demo.js"],
     "exclude": ["node_modules", "dist", "src/proxy", "scripts"]
 }
